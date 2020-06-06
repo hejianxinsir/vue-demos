@@ -43,18 +43,29 @@
 
     来自父组件：
     {{msg}}
+    <hr>
+
+    new 一个 Vue 实例去通信：<br>
+    <button @click="send">send</button>
+    <br>
+
+    接收 EventBus
+    {{fromEventBus}}
+
   </div>
 </template>
 
 <script>
 import {mapState, mapMutations, mapActions, mapGetters} from 'vuex';
 
+
 export default {
   name: 'HelloWorld',
   props: ['msg'],
   data(){
     return {
-      money: '8877$'
+      money: '8877$',
+      fromEventBus: ''
     }
   },
   computed: {
@@ -68,6 +79,9 @@ export default {
     ...mapState(['num', 'location'])
   },
   methods: {
+    send(){
+      Event.$emit('data-a', this.money)
+    },
     sendToF(){
       this.$emit('handle', this.money)
     },
@@ -88,6 +102,11 @@ export default {
     },
     ...mapMutations(['inc', 'dec', 'CHANGE']),
     ...mapActions(['incAction', 'decAction'])
+  },
+  mounted(){
+    this.$EventBus.$on('data-a', data => {
+      this.fromEventBus = data
+    })
   }
 }
 </script>

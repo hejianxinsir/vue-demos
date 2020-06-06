@@ -7,8 +7,10 @@
     <br>
 
     <HelloWorld @handle="receive" :msg="toSon"/>
-    {{fromSon}}
-    
+    {{fromSon}}<br>
+
+    EventBus<br>
+    <button @click="send">sendEventBus</button>
   </div>
 </template>
 
@@ -20,7 +22,8 @@ export default {
   data(){
     return {
       fromSon: '',
-      toSon: '888888888$'
+      toSon: '888888888$',
+      something: 'EventBus-100'
     }
   },
   components: {
@@ -29,6 +32,9 @@ export default {
   methods: {
     receive(value){
       this.fromSon = value
+    },
+    send(){
+      this.$EventBus.$emit('data-a', this.something)
     }
   }
 }
