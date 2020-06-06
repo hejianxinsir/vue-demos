@@ -1,6 +1,12 @@
 <template>
   <div class="hello">
     <h1>HelloWorld</h1>
+
+    父子组件的传递：
+    <button @click="sendToF">sendToFather</button>
+
+    <hr>
+
     接受 router 的参数是：{{this.$route.params.data}}<br>
 
     store 的数字是：{{getNum}}<br>
@@ -32,6 +38,11 @@
     store 里的天气是：<br>
     moduleA: {{this.$store.state.moduleA.today}}<br>
     moduleB: {{this.$store.state.moduleB.today}}<br>
+
+    <hr>
+
+    来自父组件：
+    {{msg}}
   </div>
 </template>
 
@@ -40,6 +51,12 @@ import {mapState, mapMutations, mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'HelloWorld',
+  props: ['msg'],
+  data(){
+    return {
+      money: '8877$'
+    }
+  },
   computed: {
     getNum(){
       return this.$store.getters.getNum
@@ -51,6 +68,9 @@ export default {
     ...mapState(['num', 'location'])
   },
   methods: {
+    sendToF(){
+      this.$emit('handle', this.money)
+    },
     plus(){
       this.$store.commit('inc')
     },
