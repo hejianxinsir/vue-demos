@@ -7,6 +7,7 @@ import List from '../components/list.vue'
 import HelloWorld from '../components/HelloWorld.vue'
 
 export default new Router({
+  mode: 'hash',
   routes: [
     {
       name: 'list',
